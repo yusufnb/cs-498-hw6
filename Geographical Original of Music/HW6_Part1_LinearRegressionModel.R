@@ -33,3 +33,12 @@ plot(x=obs_long, y=pred_long, type="p", main="Predicted vs. Observed Latitude", 
 
 rsquared_lat <-summary(xy_lat_matrix.lm)$r.squared
 rsquared_long <-summary(xy_long_matrix.lm)$r.squared
+
+########### BOX - COX ############
+pos_ylat <- y_lat_matrix + 90
+pos_ylong <- y_long_matrix + 180
+bc_lat <- boxcox(pos_ylat~x_matrix, lambda = seq(-2, 2, 1/10), plotit = TRUE, xlab = "λ", ylab = "Log Likelihood")
+
+
+
+
