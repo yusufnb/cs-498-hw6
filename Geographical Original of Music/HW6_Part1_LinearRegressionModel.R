@@ -38,6 +38,14 @@ rsquared_long <-summary(xy_long_matrix.lm)$r.squared
 pos_ylat <- y_lat_matrix + 90
 pos_ylong <- y_long_matrix + 180
 bc_lat <- boxcox(pos_ylat~x_matrix, lambda = seq(-2, 2, 1/10), plotit = TRUE, xlab = "λ", ylab = "Log Likelihood")
+title("BoxCox - Latitude.")
+bc_long <- boxcox(pos_ylong~x_matrix, lambda = seq(-2, 2, 1/10), plotit = TRUE, xlab = "λ", ylab = "Log Likelihood")
+title("BoxCox - Longitude")
+
+
+
+
+
 
 
 
