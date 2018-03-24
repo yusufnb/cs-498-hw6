@@ -30,3 +30,6 @@ pred_long<-xy_long_matrix.lm$fitted.values
 obs_long<-y_long_matrix
 #res_long<-xy_long_matrix.lm$residuals
 plot(x=obs_long, y=pred_long, type="p", main="Predicted vs. Observed Latitude", xlab="Observed Longitude", ylab="Predicted Longitude")
+
+rsquared_lat <-summary(xy_lat_matrix.lm)$r.squared
+rsquared_long <-summary(xy_long_matrix.lm)$r.squared
