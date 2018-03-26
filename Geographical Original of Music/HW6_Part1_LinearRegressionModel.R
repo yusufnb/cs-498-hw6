@@ -37,16 +37,27 @@ rsquared_long <-summary(xy_long_matrix.lm)$r.squared
 ########### BOX - COX ############
 pos_ylat <- y_lat_matrix + 90
 pos_ylong <- y_long_matrix + 180
-bc_lat <- boxcox(pos_ylat~x_matrix, lambda = seq(-2, 2, 1/10), plotit = TRUE, xlab = "λ", ylab = "Log Likelihood")
-title("BoxCox - Latitude.")
-bc_long <- boxcox(pos_ylong~x_matrix, lambda = seq(-2, 2, 1/10), plotit = TRUE, xlab = "λ", ylab = "Log Likelihood")
+boxcox_lat <- boxcox(pos_ylat~x_matrix, lambda = seq(-2, 2, 1/10), plotit = TRUE, xlab = "λ", ylab = "Log Likelihood")
+title("BoxCox - Latitude")
+boxcox_long <- boxcox(pos_ylong~x_matrix, lambda = seq(-2, 2, 1/10), plotit = TRUE, xlab = "λ", ylab = "Log Likelihood")
 title("BoxCox - Longitude")
 
+lambda_lat<-boxcox_lat$x[which.max(boxcox_lat$y)]
+lambda_long<-boxcox_long$x[which.max(boxcox_long$y)]
+boxcox_y_lat<-(pos_ylat^lambda_lat - 1)/lambda_lat
+boxcox_y_long<-(pos_ylong^lambda_long - 1)/lambda_long
 
+boxcox_lat <-data.frame(ind=x_matrix, dep=boxcox_y_lat)
+boxcox_lat.lm<-lm(boxcox_y_lat~as.matrix(x_matrix))
+boxcox_long <-data.frame(ind=x_matrix, dep=boxcox_y_long)
+boxcox_long.lm<-lm(boxcox_y_long~as.matrix(x_matrix))
 
+pred_boxcox_lat<-predict(boxcox_lat.lm,data.frame(x_matrix))
+pred_boxcox_long<-predict(boxcox_long.lm,data.frame(x_matrix))
 
+reversed_boxcox_lat<-(pred_boxcox_lat*lambda_lat+1)^(1/lambda_lat)-90
+reversed_boxcox_long<-(pred_boxcox_long*lambda_long+1)^(1/lambda_long)-180
 
-
-
-
+rsquared_boxcox_lat <- var(reversed_boxcox_lat)/var(y_lat_matrix)
+rsquared_boxcox_long <- var(reversed_boxcox_long)/var(y_lat_matrix)
 
