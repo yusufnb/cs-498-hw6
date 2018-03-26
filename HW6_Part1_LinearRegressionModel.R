@@ -1,5 +1,6 @@
-setwd("~/Dev/CS498/HW6/cs-498-hw6/Geographical Original of Music")
+setwd("~/Dev/CS498/HW6/cs-498-hw6")
 library('stats') 
+library('MASS')
 
 data<-read.csv('default_plus_chromatic_features_1059_tracks.txt', header=FALSE, sep = ',')
 colnames(data)[117] <- "lat"
