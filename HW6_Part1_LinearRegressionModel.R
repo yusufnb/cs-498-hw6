@@ -1,4 +1,5 @@
-setwd("~/Dev/CS498/HW6/cs-498-hw6")
+#setwd("~/Dev/CS498/HW6/cs-498-hw6")
+# setwd to source file location using R Studio: Session -> Set Working Directory -> To Source File Loc
 library('stats') 
 library('MASS')
 
