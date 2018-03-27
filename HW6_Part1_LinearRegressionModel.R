@@ -1,3 +1,4 @@
+#made with guidance from Study Group (Olga, Shairoz, RJ, and teammates Yusuf + Behrooz), as well as hkiang01 https://github.com/hkiang01/Applied-Machine-Learning/blob/master/assignment6/regression.R
 #setwd("~/Dev/CS498/HW6/cs-498-hw6")
 # setwd to source file location using R Studio: Session -> Set Working Directory -> To Source File Loc
 library('stats') 
@@ -36,7 +37,8 @@ plot(x=obs_long, y=pred_long, type="p", main="Predicted vs. Observed Latitude", 
 rsquared_lat <-summary(xy_lat_matrix.lm)$r.squared
 rsquared_long <-summary(xy_long_matrix.lm)$r.squared
 
-########### BOX - COX ############
+
+#Does a Box-Cox transformation improve the regressions? Notice that the dependent variable has some negative values, which Box-Cox doesn't like. You can deal with this by remembering that these are angles, so you get to choose the origin. why do you say so? For the rest of the exercise, use the transformation if it does improve things, otherwise, use the raw data.
 pos_ylat <- y_lat_matrix + 90
 pos_ylong <- y_long_matrix + 180
 boxcox_lat <- boxcox(pos_ylat~x_matrix, lambda = seq(-2, 2, 1/10), plotit = TRUE, xlab = "λ", ylab = "Log Likelihood")
@@ -62,4 +64,3 @@ reversed_boxcox_long<-(pred_boxcox_long*lambda_long+1)^(1/lambda_long)-180
 
 rsquared_boxcox_lat <- var(reversed_boxcox_lat)/var(y_lat_matrix)
 rsquared_boxcox_long <- var(reversed_boxcox_long)/var(y_lat_matrix)
-
